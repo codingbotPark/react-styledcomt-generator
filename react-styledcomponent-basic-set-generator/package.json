@@ -10,14 +10,14 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:react-styledcomponent-basic-set-generator.helloWorld"
+    "onCommand:react-styledcomponent-basic-set-generator.createFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "react-styledcomponent-basic-set-generator.helloWorld",
-        "title": "Hello World"
+        "command": "react-styledcomponent-basic-set-generator.createFile",
+        "title": "CRSC"
       }
     ]
   },
