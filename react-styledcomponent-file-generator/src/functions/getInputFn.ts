@@ -10,7 +10,7 @@ export async function getInputFn({
     const userText = await vscode.window.showInputBox({
         placeHolder:placeHolder,
         prompt:prompt,
-        value:value
+        value:value,
     })
     if (userText === undefined){
         vscode.window.showErrorMessage(`there is no value for "${prompt}"`)

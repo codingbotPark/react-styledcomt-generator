@@ -10,25 +10,25 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:react-styledcomponent-file-generator.createFile",
-    "onCommand:react-styledcomponent-file-generator.sayHello"
+    "onCommand:react-styledcomponent-file-generator.createRSC",
+    "onCommand:react-styledcomponent-file-generator.createRSCWithMenu"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "react-styledcomponent-file-generator.createFile",
+        "command": "react-styledcomponent-file-generator.createRSC",
         "title": "CRSC"
       },{
-        "command": "react-styledcomponent-file-generator.sayHello",
-        "title": "SayHello"
+        "command": "react-styledcomponent-file-generator.createRSCWithMenu",
+        "title": "CRSCWithMenu"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "when": "explorerResourceIsFolder",
-          "command": "react-styledcomponent-file-generator.sayHello"
+          "command": "react-styledcomponent-file-generator.createRSCWithMenu"
         }
       ]
     }

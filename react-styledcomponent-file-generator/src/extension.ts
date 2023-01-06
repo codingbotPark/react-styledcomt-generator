@@ -1,31 +1,19 @@
 import * as vscode from 'vscode';
-import { createNewFileService } from './service/createNewFileService';
+import { makeRSCWithMenu } from './service/makeRSCWithMenu';
+import { makeRSFile } from './service/makeRSFile';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('react-styledcomponent-file-generator.createFile', () => {
-		createNewFileService()
+	let getWithCommand = vscode.commands.registerCommand('react-styledcomponent-file-generator.createRSC', () => {
+		makeRSFile()
 	});
 	
 	
-	let disposabl1 = vscode.commands.registerCommand('react-styledcomponent-file-generator.sayHello', async (folder) => {
-		let newUri = folder;
-		
-		if (folder){ // clipboard를 활용해 path를 가져온다
-			// 원래 복사한 것
-			const originClipboard = await vscode.env.clipboard.readText();
-
-			await vscode.commands.executeCommand('copyFilePath');
-			folder = await vscode.env.clipboard.readText();
-
-			await vscode.env.clipboard.writeText(originClipboard);
-
-			vscode.window.showInformationMessage(folder)
-		}
-		
+	let getWithMenu = vscode.commands.registerCommand('react-styledcomponent-file-generator.createRSCWithMenu', async (folder) => {
+		makeRSCWithMenu(folder)
 	});
 	
-	context.subscriptions.push(disposable,disposabl1);
+	context.subscriptions.push(getWithCommand,getWithMenu);
 }
 
 export function deactivate() {}

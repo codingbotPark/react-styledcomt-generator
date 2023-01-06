@@ -1,0 +1,32 @@
+import * as vscode from "vscode"
+import { getFSPath } from "../functions/getFSPathFn"
+import { getInputFn } from "../functions/getInputFn"
+import { makeNewFileFn } from "../functions/makeNewFileFn"
+
+/**
+ * 
+ * @param folderPath folder의 path, 없다면 현재 WS의 위치이다
+ */
+export function makeRSFile(
+    folderPath:string = getFSPath()
+){
+    /**@todo mac일 때를 테스트해보기 */
+    let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${"jsx"}`
+
+    getInputFn({
+        placeHolder:"[fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
+        prompt:"create new 'CRSC' file => [fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
+        value:userText
+    }).then((componentPath) => {
+        // 선택된 폴더도 없고, 입력도 되지 않았을 때
+        if (componentPath === ""){
+            vscode.window.showErrorMessage('do not work because there is no selected file & entered file name')
+            return
+        }
+        // jsx | tsx와 style.js | ts를 만들어준다
+        makeNewFileFn(componentPath)
+        // 확장자는 하나뿐이기 때문에 . 을 사용
+        const styledFilePath = `${componentPath.split(".")[0]}.style.${"js"}`
+        makeNewFileFn(styledFilePath)
+    })
+}
