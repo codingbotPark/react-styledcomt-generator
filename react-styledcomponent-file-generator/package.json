@@ -41,6 +41,18 @@
           "default":"js",
           "enum":["js","ts"],
           "enumDescriptions": ["Auto complete file name for using javascript","Auto complete file name for using typescript"]
+        },
+        "CRSC-format.ImportStyleFileName":{
+          "description": "name of import name (ex import * as [S or ComponentFirstLetter or otherThing])",
+          "type":"string",
+          "default":"ComponentFirstLetter",
+          "enum": ["ComponentFirstLetter","S","otherThing"],
+          "enumDescriptions": ["import styleFile by ComponentFirstLetter", "import styleFile by 'S'","import styleFile by customValue"]
+        },
+        "CRSC-format.CustomImportName":{
+          "description": "If you select 'customValue' for 'ImportStyleFileName'",
+          "type":"string",
+          "default":""
         }
       }
     }

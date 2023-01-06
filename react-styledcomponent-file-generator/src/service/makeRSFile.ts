@@ -25,6 +25,8 @@ export function makeRSFile(
             vscode.window.showErrorMessage('do not work because there is no selected file & entered file name')
             return
         }
+
+        /**@todo 생성할 때 이미있는 파일이면 link만 시키기 */
         // jsx | tsx와 style.js | ts를 만들어준다
         makeNewFileFn(componentPath)
         // 확장자는 하나뿐이기 때문에 . 을 사용
