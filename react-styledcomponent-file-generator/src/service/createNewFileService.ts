@@ -6,7 +6,7 @@ export async function createNewFileService(){
     let WSEdit = new vscode.WorkspaceEdit();
     // 기본적인 userText는 현재 열린 파일
     // let userText = "default"
-    let userText = ""
+    let userText = settingDefaultValue()
 
     getInputFn({
         placeHolder:"[newFileName].[extension] (default : js)",
@@ -28,4 +28,12 @@ export async function createNewFileService(){
         vscode.workspace.applyEdit(WSEdit);
 
     })
+}
+
+function settingDefaultValue(){
+    if (false){ // 폴더를 선택했을 때
+
+    } else { // 아닐 때, 기본값은 
+        return ""
+    }
 }

@@ -15,13 +15,13 @@ module.exports = require("vscode");
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createNewFileService = void 0;
 const vscode = __webpack_require__(1);
-const getFSPathFn_1 = __webpack_require__(4);
-const getInputFn_1 = __webpack_require__(3);
+const getFSPathFn_1 = __webpack_require__(3);
+const getInputFn_1 = __webpack_require__(4);
 async function createNewFileService() {
     let WSEdit = new vscode.WorkspaceEdit();
     // 기본적인 userText는 현재 열린 파일
     // let userText = "default"
-    let userText = "";
+    let userText = settingDefaultValue();
     (0, getInputFn_1.getInputFn)({
         placeHolder: "[newFileName].[extension] (default : js)",
         prompt: "create new 'CRSC' file",
@@ -41,33 +41,16 @@ async function createNewFileService() {
     });
 }
 exports.createNewFileService = createNewFileService;
+function settingDefaultValue() {
+    if (false) {}
+    else { // 아닐 때, 기본값은 
+        return "";
+    }
+}
 
 
 /***/ }),
 /* 3 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getInputFn = void 0;
-const vscode = __webpack_require__(1);
-async function getInputFn({ placeHolder, prompt, value }) {
-    const userText = await vscode.window.showInputBox({
-        placeHolder: placeHolder,
-        prompt: prompt,
-        value: value
-    });
-    if (userText === undefined) {
-        vscode.window.showErrorMessage(`there is no value for "${prompt}"`);
-        throw new Error(`there is no value for "${prompt}"`);
-    }
-    return userText;
-}
-exports.getInputFn = getInputFn;
-
-
-/***/ }),
-/* 4 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -91,6 +74,29 @@ function getFSPath() {
     throw new Error("error on getFSPathFn");
 }
 exports.getFSPath = getFSPath;
+
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInputFn = void 0;
+const vscode = __webpack_require__(1);
+async function getInputFn({ placeHolder, prompt, value }) {
+    const userText = await vscode.window.showInputBox({
+        placeHolder: placeHolder,
+        prompt: prompt,
+        value: value
+    });
+    if (userText === undefined) {
+        vscode.window.showErrorMessage(`there is no value for "${prompt}"`);
+        throw new Error(`there is no value for "${prompt}"`);
+    }
+    return userText;
+}
+exports.getInputFn = getInputFn;
 
 
 /***/ })
@@ -134,7 +140,20 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('react-styledcomponent-file-generator.createFile', () => {
         (0, createNewFileService_1.createNewFileService)();
     });
-    context.subscriptions.push(disposable);
+    let disposabl1 = vscode.commands.registerCommand('react-styledcomponent-file-generator.sayHello', async (folder) => {
+        let newUri = folder;
+        vscode.window.showInformationMessage("hi");
+        if (!folder) { // clipboard를 활용해 path를 가져온다
+            // 원래 복사한 것
+            const originClipboard = await vscode.env.clipboard.readText();
+            await vscode.commands.executeCommand('copyFilePath');
+            folder = await vscode.env.clipboard.readText();
+            await vscode.env.clipboard.writeText(originClipboard);
+            newUri = vscode.Uri.file(folder);
+            vscode.window.showInformationMessage(newUri);
+        }
+    });
+    context.subscriptions.push(disposable, disposabl1);
 }
 exports.activate = activate;
 function deactivate() { }
