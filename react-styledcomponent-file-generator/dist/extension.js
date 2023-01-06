@@ -43,31 +43,41 @@ exports.makeRSFile = void 0;
 const vscode = __webpack_require__(1);
 const getFSPathFn_1 = __webpack_require__(4);
 const getInputFn_1 = __webpack_require__(5);
-const makeNewFileFn_1 = __webpack_require__(6);
+const createNewFileFn_1 = __webpack_require__(6);
+const staticContent_1 = __webpack_require__(7);
 /**
  *
  * @param folderPath folder의 path, 없다면 현재 WS의 위치이다
  */
 function makeRSFile(folderPath = (0, getFSPathFn_1.getFSPath)()) {
-    let language = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension");
+    let language = vscode.workspace
+        .getConfiguration("CRSC-format")
+        .get("FileExtension");
     /**@todo mac일 때를 테스트해보기 to 홍센세 */
     let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`;
     (0, getInputFn_1.getInputFn)({
         placeHolder: "[fileNameWithPath].[jsx|tsx]",
         prompt: `create new 'CRSC' file => [fileNameWithPath].[jsx|tsx], selected language is ${language}x (extension can be set with 'CRSC-format.FileExtension')`,
-        value: userText
-    }).then((componentPath) => {
+        value: userText,
+    }).then(async (componentPath) => {
         // 선택된 폴더도 없고, 입력도 되지 않았을 때
         if (componentPath === "") {
-            vscode.window.showErrorMessage('do not work because there is no selected file & entered file name');
+            vscode.window.showErrorMessage("do not work because there is no selected file & entered file name");
             return;
         }
         /**@todo 생성할 때 이미있는 파일이면 link만 시키기 */
         // jsx | tsx와 style.js | ts를 만들어준다
-        (0, makeNewFileFn_1.makeNewFileFn)(componentPath);
+        await (0, createNewFileFn_1.createNewFileFn)(componentPath).then(() => { });
         // 확장자는 하나뿐이기 때문에 . 을 사용
         const styledFilePath = `${componentPath.split(".")[0]}.style.${language}`;
-        (0, makeNewFileFn_1.makeNewFileFn)(styledFilePath);
+        await (0, createNewFileFn_1.createNewFileFn)(styledFilePath).then(async () => {
+            let uri = vscode.Uri.file(styledFilePath);
+            const workspaceEdit = new vscode.WorkspaceEdit();
+            const position = new vscode.Position(0, 0);
+            workspaceEdit.insert(uri, position, staticContent_1.styleFile);
+            const success = await vscode.workspace.applyEdit(workspaceEdit);
+        });
+        vscode.commands.executeCommand("vscode.open", vscode.Uri.file(componentPath));
     });
 }
 exports.makeRSFile = makeRSFile;
@@ -129,15 +139,32 @@ exports.getInputFn = getInputFn;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.makeNewFileFn = void 0;
+exports.createNewFileFn = void 0;
 const vscode = __webpack_require__(1);
-function makeNewFileFn(path) {
+async function createNewFileFn(path) {
     let WSEdit = new vscode.WorkspaceEdit();
     const filePath = vscode.Uri.file(path);
     WSEdit.createFile(filePath);
-    vscode.workspace.applyEdit(WSEdit);
+    await vscode.workspace.applyEdit(WSEdit);
 }
-exports.makeNewFileFn = makeNewFileFn;
+exports.createNewFileFn = createNewFileFn;
+
+
+/***/ }),
+/* 7 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.styleFile = void 0;
+exports.styleFile = `\
+import styled from "styled-components";
+
+export const Wrapper = styled.div\`
+
+\`
+
+`;
 
 
 /***/ })

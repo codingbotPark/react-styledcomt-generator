@@ -1,9 +1,9 @@
 import * as vscode from "vscode"
 
-export function makeNewFileFn(path:string){
+export async function createNewFileFn(path:string){
     let WSEdit = new vscode.WorkspaceEdit();
 
     const filePath = vscode.Uri.file(path)
     WSEdit.createFile(filePath);
-    vscode.workspace.applyEdit(WSEdit);
+    await vscode.workspace.applyEdit(WSEdit);
 }
