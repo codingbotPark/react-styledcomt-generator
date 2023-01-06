@@ -13,21 +13,48 @@ module.exports = require("vscode");
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.makeRSCWithMenu = void 0;
+const vscode = __webpack_require__(1);
+const makeRSFile_1 = __webpack_require__(3);
+/**
+ * folder 선택으로 RSC생성
+ * 따라서 folderPath를 가져오는 작업을 하고 makeRSFile함수를 실행
+ */
+async function makeRSCWithMenu(folder) {
+    if (folder) { // clipboard를 활용해 path를 가져온다
+        // 원래 복사한 것
+        const originClipboard = await vscode.env.clipboard.readText();
+        await vscode.commands.executeCommand('copyFilePath');
+        const folderPath = await vscode.env.clipboard.readText();
+        await vscode.env.clipboard.writeText(originClipboard);
+        (0, makeRSFile_1.makeRSFile)(folderPath);
+    }
+}
+exports.makeRSCWithMenu = makeRSCWithMenu;
+
+
+/***/ }),
+/* 3 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.makeRSFile = void 0;
 const vscode = __webpack_require__(1);
-const getFSPathFn_1 = __webpack_require__(3);
-const getInputFn_1 = __webpack_require__(4);
+const getFSPathFn_1 = __webpack_require__(4);
+const getInputFn_1 = __webpack_require__(5);
 const makeNewFileFn_1 = __webpack_require__(6);
 /**
  *
  * @param folderPath folder의 path, 없다면 현재 WS의 위치이다
  */
 function makeRSFile(folderPath = (0, getFSPathFn_1.getFSPath)()) {
+    let language = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension");
     /**@todo mac일 때를 테스트해보기 */
-    let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${"jsx"}`;
+    let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`;
     (0, getInputFn_1.getInputFn)({
-        placeHolder: "[fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
-        prompt: "create new 'CRSC' file => [fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
+        placeHolder: "[fileNameWithPath].[jsx|tsx]",
+        prompt: `create new 'CRSC' file => [fileNameWithPath].[jsx|tsx], selected language is ${language}x (extension can be set with 'CRSC-format.FileExtension')`,
         value: userText
     }).then((componentPath) => {
         // 선택된 폴더도 없고, 입력도 되지 않았을 때
@@ -38,7 +65,7 @@ function makeRSFile(folderPath = (0, getFSPathFn_1.getFSPath)()) {
         // jsx | tsx와 style.js | ts를 만들어준다
         (0, makeNewFileFn_1.makeNewFileFn)(componentPath);
         // 확장자는 하나뿐이기 때문에 . 을 사용
-        const styledFilePath = `${componentPath.split(".")[0]}.style.${"js"}`;
+        const styledFilePath = `${componentPath.split(".")[0]}.style.${language}`;
         (0, makeNewFileFn_1.makeNewFileFn)(styledFilePath);
     });
 }
@@ -46,7 +73,7 @@ exports.makeRSFile = makeRSFile;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -73,7 +100,7 @@ exports.getFSPath = getFSPath;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -93,32 +120,6 @@ async function getInputFn({ placeHolder, prompt, value }) {
     return userText;
 }
 exports.getInputFn = getInputFn;
-
-
-/***/ }),
-/* 5 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.makeRSCWithMenu = void 0;
-const vscode = __webpack_require__(1);
-const makeRSFile_1 = __webpack_require__(2);
-/**
- * folder 선택으로 RSC생성
- * 따라서 folderPath를 가져오는 작업을 하고 makeRSFile함수를 실행
- */
-async function makeRSCWithMenu(folder) {
-    if (folder) { // clipboard를 활용해 path를 가져온다
-        // 원래 복사한 것
-        const originClipboard = await vscode.env.clipboard.readText();
-        await vscode.commands.executeCommand('copyFilePath');
-        const folderPath = await vscode.env.clipboard.readText();
-        await vscode.env.clipboard.writeText(originClipboard);
-        (0, makeRSFile_1.makeRSFile)(folderPath);
-    }
-}
-exports.makeRSCWithMenu = makeRSCWithMenu;
 
 
 /***/ }),
@@ -175,8 +176,8 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deactivate = exports.activate = void 0;
 const vscode = __webpack_require__(1);
-const makeRSCWithMenu_1 = __webpack_require__(5);
-const makeRSFile_1 = __webpack_require__(2);
+const makeRSCWithMenu_1 = __webpack_require__(2);
+const makeRSFile_1 = __webpack_require__(3);
 function activate(context) {
     let getWithCommand = vscode.commands.registerCommand('react-styledcomponent-file-generator.createRSC', () => {
         (0, makeRSFile_1.makeRSFile)();

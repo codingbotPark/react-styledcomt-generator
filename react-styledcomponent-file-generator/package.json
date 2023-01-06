@@ -21,7 +21,7 @@
         "title": "CRSC"
       },{
         "command": "react-styledcomponent-file-generator.createRSCWithMenu",
-        "title": "CRSCWithMenu"
+        "title": "Create React-Styled Component"
       }
     ],
     "menus": {
@@ -31,6 +31,18 @@
           "command": "react-styledcomponent-file-generator.createRSCWithMenu"
         }
       ]
+    },
+    "configuration":{
+      "title": "CRSC format",
+      "properties": {
+        "CRSC-format.FileExtension":{
+          "description": "language for making react-component",
+          "type":"string",
+          "default":"js",
+          "enum":["js","ts"],
+          "enumDescriptions": ["Auto complete file name for using javascript","Auto complete file name for using typescript"]
+        }
+      }
     }
   },
   "scripts": {

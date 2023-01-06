@@ -10,12 +10,14 @@ import { makeNewFileFn } from "../functions/makeNewFileFn"
 export function makeRSFile(
     folderPath:string = getFSPath()
 ){
+    let language = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension")
+
     /**@todo mac일 때를 테스트해보기 */
-    let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${"jsx"}`
+    let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`
 
     getInputFn({
-        placeHolder:"[fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
-        prompt:"create new 'CRSC' file => [fileNameWithPath].[jsx|tsx] (extension can be set with 'CRSC' keyword)",
+        placeHolder:"[fileNameWithPath].[jsx|tsx]",
+        prompt:`create new 'CRSC' file => [fileNameWithPath].[jsx|tsx], selected language is ${language}x (extension can be set with 'CRSC-format.FileExtension')`,
         value:userText
     }).then((componentPath) => {
         // 선택된 폴더도 없고, 입력도 되지 않았을 때
@@ -26,7 +28,7 @@ export function makeRSFile(
         // jsx | tsx와 style.js | ts를 만들어준다
         makeNewFileFn(componentPath)
         // 확장자는 하나뿐이기 때문에 . 을 사용
-        const styledFilePath = `${componentPath.split(".")[0]}.style.${"js"}`
+        const styledFilePath = `${componentPath.split(".")[0]}.style.${language}`
         makeNewFileFn(styledFilePath)
     })
 }
