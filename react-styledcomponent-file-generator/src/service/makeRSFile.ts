@@ -3,6 +3,8 @@ import { getFSPath } from "../functions/util/getFSPathFn";
 import { getInputFn } from "../functions/tools/getInputFn";
 import { createNewFileFn } from "../functions/createNewFileFn";
 import { styleFile } from "../content/staticContent";
+import { addContentFn } from "../functions/addContentFn";
+import { componentContentProvider } from "../content/dynamicContent";
 
 /**
  *
@@ -29,18 +31,29 @@ export function makeRSFile(folderPath: string = getFSPath()) {
       return;
     }
 
-    /**@todo 생성할 때 이미있는 파일이면 link만 시키기 */
+    /**@todo 생성할 때 이미있는 파일이면 link만 시키기, 
+     * 아마 생성이 원래 있으면 되지 않음 */
     // jsx | tsx와 style.js | ts를 만들어준다
-    await createNewFileFn(componentPath).then(() => {});
+    await createNewFileFn(componentPath).then(() => {
+        const componentName = componentPath.split("\\").at(-1)
+        
+        if (!componentName) {
+            throw new Error("componentName을 split한 값이 undefined입니다")
+        }
+
+        addContentFn({
+            filePath:componentPath,
+            replaceStr:componentContentProvider(componentName)
+        })
+    });
 
     // 확장자는 하나뿐이기 때문에 . 을 사용
     const styledFilePath = `${componentPath.split(".")[0]}.style.${language}`;
-    await createNewFileFn(styledFilePath).then(async () => {
-      let uri = vscode.Uri.file(styledFilePath);
-      const workspaceEdit = new vscode.WorkspaceEdit();
-      const position = new vscode.Position(0, 0);
-      workspaceEdit.insert(uri, position, styleFile);
-      const success = await vscode.workspace.applyEdit(workspaceEdit);
+    await createNewFileFn(styledFilePath).then(() => {
+      addContentFn({
+        filePath:styledFilePath,
+        replaceStr:styleFile
+      })
     });
 
     vscode.commands.executeCommand("vscode.open",vscode.Uri.file(componentPath));
