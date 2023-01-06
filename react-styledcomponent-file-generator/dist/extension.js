@@ -155,7 +155,7 @@ const vscode = __webpack_require__(1);
 async function createNewFileFn(path) {
     let WSEdit = new vscode.WorkspaceEdit();
     const filePath = vscode.Uri.file(path);
-    WSEdit.createFile(filePath);
+    WSEdit.createFile(filePath, { ignoreIfExists: true });
     await vscode.workspace.applyEdit(WSEdit);
 }
 exports.createNewFileFn = createNewFileFn;
@@ -215,19 +215,19 @@ function componentContentProvider(fileName) {
     const onlyName = fileName.split(".")[0];
     const extension = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension");
     return `\
-    import React from 'react';
-    import * as ${styleFileName} from "./${onlyName}.style.${extension}"
+import React from 'react';
+import * as ${styleFileName} from "./${onlyName}.style.${extension}"
 
-    const ${onlyName} = () => {
-        return (
-            <${styleFileName}.Wrapper>
+const ${onlyName} = () => {
+    return (
+        <${styleFileName}.Wrapper>
 
-            </${styleFileName}.Wrapper>
-        )
-    }
+        </${styleFileName}.Wrapper>
+    )
+}
 
-    export default ${onlyName};
-    `;
+export default ${onlyName};
+`;
 }
 exports.componentContentProvider = componentContentProvider;
 function getStyleFileName(fileName) {

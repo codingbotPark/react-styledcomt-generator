@@ -11,19 +11,19 @@ export function componentContentProvider(fileName:string){
     const extension = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension")
 
     return `\
-    import React from 'react';
-    import * as ${styleFileName} from "./${onlyName}.style.${extension}"
+import React from 'react';
+import * as ${styleFileName} from "./${onlyName}.style.${extension}"
 
-    const ${onlyName} = () => {
-        return (
-            <${styleFileName}.Wrapper>
+const ${onlyName} = () => {
+    return (
+        <${styleFileName}.Wrapper>
 
-            </${styleFileName}.Wrapper>
-        )
-    }
+        </${styleFileName}.Wrapper>
+    )
+}
 
-    export default ${onlyName};
-    `
+export default ${onlyName};
+`
 }
 
 function getStyleFileName(fileName:string){
