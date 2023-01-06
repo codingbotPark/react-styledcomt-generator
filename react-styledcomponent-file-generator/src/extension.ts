@@ -10,9 +10,8 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	let disposabl1 = vscode.commands.registerCommand('react-styledcomponent-file-generator.sayHello', async (folder) => {
 		let newUri = folder;
-		vscode.window.showInformationMessage("hi")
-
-		if (!folder){ // clipboard를 활용해 path를 가져온다
+		
+		if (folder){ // clipboard를 활용해 path를 가져온다
 			// 원래 복사한 것
 			const originClipboard = await vscode.env.clipboard.readText();
 
@@ -21,9 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 			await vscode.env.clipboard.writeText(originClipboard);
 
-			newUri = vscode.Uri.file(folder);
-
-			vscode.window.showInformationMessage(newUri)
+			vscode.window.showInformationMessage(folder)
 		}
 		
 	});
