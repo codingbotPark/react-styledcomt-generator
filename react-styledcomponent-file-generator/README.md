@@ -1,31 +1,26 @@
 # react-styledcomponent-file-generator README
 
-This is the README for your extension "react-styledcomponent-file-generator". After writing up a brief description, we recommend including the following sections.
+
+It helps you make new files that use react-styledComponents
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+![featureGIF1](https://user-images.githubusercontent.com/85085375/211096173-6ad90944-0afe-48e3-894e-2724ca7f51c4.gif)
+> you can make new component that using react-styledComponents, by Folder's menu
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+![featureIMG1](https://user-images.githubusercontent.com/85085375/211096150-04be4694-5170-4223-9d43-af3060417707.png)
+> you can setting extension (language, import naming)
 
-For example:
 
-This extension contributes the following settings:
+* `File Extension` : title is content, you can select language(extension) JS or TS, It affect fileName
+* `Import Style File Name` : It is importing name, so it affect componentsFile & Basic set of content, you can select `just S` or `first letter of component` or `otherThing(custom)`
+* `Custom Import Name` : If you select `Import Style File Name` for `otherThing`, it work by "otherThing"
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+
+![featureGIF2](https://user-images.githubusercontent.com/85085375/211097148-754f742c-cee8-4f9c-9119-6edd679ff586.gif)
+> example that using other settings
 
 ## Known Issues
 
@@ -33,39 +28,12 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+give me feedback!
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of `react-styledcomponent-file-generator`
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy! 즐겨라!**

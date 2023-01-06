@@ -2,6 +2,17 @@
   "name": "react-styledcomponent-file-generator",
   "displayName": "react-styledcomponent file generator",
   "description": "it helps you to make new file that using react-styledcomponent",
+  "publisher": "codingbotPark",
+  "author": "codingbotPark",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codingbotPark/react-styledcomt-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codingbotPark/react-styledcomt-generator/issues",
+    "email": "pbk575@gmail.com"
+  },
+  "license": "MIT",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.74.0"
@@ -9,6 +20,11 @@
   "categories": [
     "Other"
   ],
+  "icon": "https://user-images.githubusercontent.com/85085375/211101462-3db5061b-6567-496c-a7fc-877716a51a3a.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onCommand:react-styledcomponent-file-generator.createRSC",
     "onCommand:react-styledcomponent-file-generator.createRSCWithMenu"
