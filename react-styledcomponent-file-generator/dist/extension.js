@@ -50,7 +50,7 @@ const makeNewFileFn_1 = __webpack_require__(6);
  */
 function makeRSFile(folderPath = (0, getFSPathFn_1.getFSPath)()) {
     let language = vscode.workspace.getConfiguration("CRSC-format").get("FileExtension");
-    /**@todo mac일 때를 테스트해보기 */
+    /**@todo mac일 때를 테스트해보기 to 홍센세 */
     let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`;
     (0, getInputFn_1.getInputFn)({
         placeHolder: "[fileNameWithPath].[jsx|tsx]",
