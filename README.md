@@ -1,7 +1,6 @@
 # react-styledcomponent-file-generator README
 
 ![extensionImg](https://user-images.githubusercontent.com/85085375/211107412-826b4a2e-c13d-4b96-87c8-3ecd5b6692df.png)
-
 It helps you make new files that use react-styledComponents
 
 ## Features
