@@ -15,7 +15,6 @@ export function makeRSFile(folderPath: string = getFSPath()) {
     .getConfiguration("CRSC-format")
     .get("FileExtension");
 
-  /**@todo mac일 때를 테스트해보기 to 홍센세 */
   let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`;
 
   getInputFn({
