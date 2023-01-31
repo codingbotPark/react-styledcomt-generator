@@ -12,7 +12,7 @@ export function componentContentProvider(fileName:string){
 
     return `\
 import React from 'react';
-import * as ${styleFileName} from "./${onlyName}.style.${extension}"
+import * as ${styleFileName} from "./${onlyName}.style"
 
 const ${onlyName} = () => {
     return (
