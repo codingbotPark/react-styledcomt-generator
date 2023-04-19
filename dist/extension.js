@@ -56,7 +56,7 @@ function makeRSFile(folderPath = (0, getFSPathFn_1.getFSPath)()) {
     let language = vscode.workspace
         .getConfiguration("CRSC-format")
         .get("FileExtension");
-    let userText = `${folderPath}${path.sep}${folderPath.split(path.sep).at(-1)}.${language}`;
+    let userText = `${folderPath}${path.sep}${folderPath.split(path.sep).at(-1)}.${language}x`;
     (0, getInputFn_1.getInputFn)({
         placeHolder: "[fileNameWithPath].[jsx|tsx]",
         prompt: `create new 'CRSC' file => [fileNameWithPath].[jsx|tsx], selected language is ${language}x (extension can be set with 'CRSC-format.FileExtension')`,

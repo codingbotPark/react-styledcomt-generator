@@ -16,7 +16,7 @@ export function makeRSFile(folderPath: string = getFSPath()) {
     .getConfiguration("CRSC-format")
     .get("FileExtension");
 
-  let userText = `${folderPath}${path.sep}${folderPath.split(path.sep).at(-1)}.${language}`
+  let userText = `${folderPath}${path.sep}${folderPath.split(path.sep).at(-1)}.${language}x`
 
   getInputFn({
     placeHolder: "[fileNameWithPath].[jsx|tsx]",
