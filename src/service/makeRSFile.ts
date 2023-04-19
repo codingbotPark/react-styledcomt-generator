@@ -5,6 +5,7 @@ import { createNewFileFn } from "../functions/createNewFileFn";
 import { styleFile } from "../content/staticContent";
 import { addContentFn } from "../functions/addContentFn";
 import { componentContentProvider } from "../content/dynamicContent";
+import path = require("path");
 
 /**
  *
@@ -15,7 +16,7 @@ export function makeRSFile(folderPath: string = getFSPath()) {
     .getConfiguration("CRSC-format")
     .get("FileExtension");
 
-  let userText = `${folderPath}\\${folderPath.split("\\").at(-1)}.${language}x`;
+  let userText = `${folderPath}${path.sep}${folderPath.split(path.sep).at(-1)}.${language}`
 
   getInputFn({
     placeHolder: "[fileNameWithPath].[jsx|tsx]",
@@ -34,7 +35,7 @@ export function makeRSFile(folderPath: string = getFSPath()) {
      * 아마 생성이 원래 있으면 되지 않음 */
     // jsx | tsx와 style.js | ts를 만들어준다
     await createNewFileFn(componentPath).then(() => {
-        const componentName = componentPath.split("\\").at(-1)
+        const componentName = componentPath.split(path.sep).at(-1)
         
         if (!componentName) {
             throw new Error("componentName을 split한 값이 undefined입니다")

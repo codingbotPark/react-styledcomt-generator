@@ -1,3 +1,4 @@
+import path = require("path")
 import * as vscode from "vscode"
 
 /**
@@ -40,7 +41,7 @@ function getStyleFileName(fileName:string){
 }
 
 function getFileNameFromPath(fileName:string):string{
-    const filteredFileName = fileName.split("\\").at(-1)
+    const filteredFileName = fileName.split(path.sep).at(-1)
     if (filteredFileName) {
         return filteredFileName
     } else {
