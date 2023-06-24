@@ -34,6 +34,10 @@ give me feedback!
 
 Initial release of `react-styledcomponent-file-generator`
 
+### 1.0.1
+
+fix using in POSIX
+
 ---
 
 **Enjoy! 즐겨라!**
